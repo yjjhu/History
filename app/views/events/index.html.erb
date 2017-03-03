@@ -1,0 +1,62 @@
+<p id="notice"><%= notice %></p>
+<form>
+<select name="yyy">
+　<option value="2016">2016</option>
+　<option value="2015">2015</option>
+
+</select>
+</form>
+
+
+  <%= link_to '新增', new_event_path %>
+
+  
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>分類</th>
+        <th>日期</th>
+        <th>組別</th>
+        <th>記事內容</th>
+        <th>年度大事</th>
+        <th>網頁隱藏</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @events.each do |event|%>
+        <tr>
+        <td><%=event.category.name%></td>
+        <td>
+          <% date_b = event.date_begin %>
+          <% date_e = event.date_end %>
+          <%= datemach(date_b,date_e) %>
+        </td>
+        <td>
+          <% i = 1 %>
+          <% event.departments.each do |depart| %>
+            <% if i == event.departments.length %>
+              <%= depart.name %>
+              <% else %>
+              <%= depart.name %>、
+            <% end %>
+            <% i+=1 %>
+          <% end %>
+        </td>
+        <td><%=event.content%></td>
+        <%= form_for(event) do |f| %>
+        <td><%= f.check_box :great, disabled: true %></td>
+        <td><%= f.check_box :privacy, disabled: true %></td>                  
+        <td>
+          <!--%= link_to '顯示', event_path(event) %-->
+          <%= link_to '編輯', edit_event_path(event) %>
+          <%= link_to '删除', event_path(event), method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+
+      <% end %>
+      <% end %>
+    </tbody>
+    </table>
+     
+<%# binding.pry%>

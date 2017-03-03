@@ -1,0 +1,37 @@
+  <%= link_to 'Edit', edit_event_path %> |
+  <%= link_to 'Back', events_path %>
+  <hr>
+  <dl>
+    <dt>全站分類</dt>
+    <dd>-----<%= @event.category.name %></dd>
+
+    <dt>日期</dt>
+    <dd>-----
+          <% date_b = @event.date_begin %>
+          <% date_e = @event.date_end %>
+          <%= datemach(date_b,date_e) %>
+    </dd>
+
+    <dt>組別</dt>
+    <dd>-----
+      <% i = 1 %>
+      <% @department.each do |depart| %>
+        <% if i == @department.length %>
+          <%= depart.name %>
+        <%else%>
+          <%= depart.name %>、
+        <%end%>
+        <% i+=1 %>
+      <% end %>
+    </dd>
+
+    <dt>記事內容</dt>
+    <dd>-----<%= @event.content %></dd>
+
+    <dt>重要？</dt>
+    <dd>-----<%= @event.great %></dd>
+
+    <dt>隱藏？</dt>
+    <dd>-----<%= @event.privacy %></dd>
+
+  </dl>

@@ -1,0 +1,57 @@
+<%= form_for(event) do |f| %>
+  <% if event.errors.any? %><!--印出錯誤-->
+    <div id="error_explanation">
+      <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
+      <ul>
+      <% event.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <label class="control-label col-sm-2" >分類</label>
+    <%= f.select :category_id, @categories.collect { |cat| [ cat.name, cat.id ] } %>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-sm-2" >組別</label>
+    <% @departments.each do |depart|  %>
+      <%= check_box_tag :department_ids, depart.id, @event.departments.include?(depart), :name => 'event[department_ids][]' -%>
+      <%=depart.name%>
+  　<% end %>  
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-sm-2" >日期—開始</label>
+    <div class="col-sm-10">
+      <%= f.text_field :date_begin, class:"form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-sm-2" >日期—結束</label>
+    <div class="col-sm-10">
+      <%= f.text_field :date_end, class:"form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-sm-2" >記事內容</label>
+    <%= f.text_area :content, class:"form-control", row:"7" %>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-sm-2" >重要？</label>
+    <%= f.check_box :great %>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-sm-2" >隱藏？</label>
+    <%= f.check_box :privacy %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
