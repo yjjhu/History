@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Library 大事記管理後台</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/admin">大事記管理後台</a>
+            <% if logged_in? %>
+              <%= link_to '+新增一筆', new_event_path, class:"navbar-brand" %> 
+            <% end %>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+            <% if logged_in? %>
+              <li><%= link_to '登出', logout_path %></li>
+            <% else %>
+              <li><%= link_to '登入', login_path %></li>
+            <% end %>
+            </ul>
+        </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+
+
+

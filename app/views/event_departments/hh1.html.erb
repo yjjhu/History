@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+  <% @categories.each do |cat|%>
+    <h2><%= cat.name %></h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th style="width:12em;">日期</th>
+          <th style="width:16em;">組別</th>
+          <th>記事內容</th>
+          <th style="width:6em;"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% cat.events.each do |event|%>
+        <tr>
+          <td>
+            <% date_b = event.date_begin %>
+            <% date_e = event.date_end %>
+            <%= datemach(date_b,date_e) %>
+          </td>
+          <td>
+            <% i = 1 %>
+            <% event.departments.each do |depart| %>
+              <% if i == event.departments.length %>
+                <%= depart.name %>
+                <% else %>
+                <%= depart.name %>、
+              <% end %>
+              <% i+=1 %>
+            <% end %>
+          </td>
+          <td>
+            <%= event.content %>
+          </td>        
+          <td>
+            <%= link_to '顯示', event_path(event) %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+     
+<%# binding.pry%>
