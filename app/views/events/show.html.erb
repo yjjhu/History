@@ -26,12 +26,15 @@
     </dd>
 
     <dt>記事內容</dt>
-    <dd>-----<%= @event.content %></dd>
+    <dd>-----<%=raw @event.content %></dd>
 
-    <dt>重要？</dt>
+    <%= form_for(@event) do |f| %>
+    <dt>年度大事？</dt>
+      <%= f.check_box :great, disabled: true %>
+      <%= f.check_box :privacy, disabled: true %>  
     <dd>-----<%= @event.great %></dd>
 
-    <dt>隱藏？</dt>
+    <dt>網頁隱藏？</dt>
     <dd>-----<%= @event.privacy %></dd>
-
+    <% end %>
   </dl>

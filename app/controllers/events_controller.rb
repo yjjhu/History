@@ -1,8 +1,11 @@
 class EventsController < ApplicationController
-    before_action :set_event, only: [:show, :edit, :update, :destroy]#在執行特定方法時先值行:set_event
+  layout "event"
+  before_action :set_event, only: [:show, :edit, :update, :destroy]#在執行特定方法時先值行:set_event
   # GET /events
   def index
-    @events = Event.order("category_id, date_begin DESC").page(params[:page]).per(20)
+    year_ids = params[:date][:year] unless params[:date].nil?
+    @events = Event.order("created_at DESC").search(year_ids).page(params[:page]).per(10)
+    #binding.pry
   end
 
   # GET /events/1
@@ -43,6 +46,8 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
   def update
+    #資料來源：http://millarian.com/rails/quick-tip-has_many-through-checkboxes/
+    @event.attributes = {'department_ids' => []}.merge(params[:event] || {})
     respond_to do |format|
       if @event.update(event_params)
         format.html { redirect_to @event, notice: '更新成功' }
